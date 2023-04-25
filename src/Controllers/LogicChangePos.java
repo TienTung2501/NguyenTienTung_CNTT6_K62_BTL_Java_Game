@@ -6,11 +6,14 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import Items.ItemNotLoad;
+import Items.ItemTypes;
 import Main.Game;
 import objects.Crabby;
 
 
 import static Controllers.Controller.ControllerEnemy.*;
+import static Controllers.Controller.ItemsInGame.*;
 public class LogicChangePos {
 	public static boolean canMoveHere(float x,float y,float width,float height, int [][] levelData) {// kiem tra xem o do co the di truyen duoc khong neu khong return true
 		if(!checkPos(x, y, levelData))// neu sai thi tiep tuc check, nghia la co the di tiep// check vi tri hien taij
@@ -139,5 +142,29 @@ public class LogicChangePos {
 				
 			}
 		return new Point(1*Game.TILES_SIZE,1*Game.TILES_SIZE);
+	}
+	public static ArrayList<ItemTypes> getItemLoad(BufferedImage img){
+		ArrayList<ItemTypes> list= new ArrayList<>();
+		for (int j = 0; j < img.getHeight(); j++)
+			for (int i = 0; i < img.getWidth(); i++) {
+				Color color = new Color(img.getRGB(i, j));
+				int value = color.getBlue();
+				if (value == RED_LOAD_ITEM|| value==BLUE_LOAD_ITEM)
+					list.add(new ItemTypes(i*Game.TILES_SIZE, j*Game.TILES_SIZE,value));
+			}
+		return list;
+	
+	}
+	public static ArrayList<ItemNotLoad> getItemNotLoad(BufferedImage img){
+		ArrayList<ItemNotLoad> list= new ArrayList<>();
+		for (int j = 0; j < img.getHeight(); j++)
+			for (int i = 0; i < img.getWidth(); i++) {
+				Color color = new Color(img.getRGB(i, j));
+				int value = color.getBlue();
+				if (value == BOX || value == BARREL)
+					list.add(new ItemNotLoad(i*Game.TILES_SIZE, j*Game.TILES_SIZE,value));
+			}
+		return list;
+	
 	}
 }

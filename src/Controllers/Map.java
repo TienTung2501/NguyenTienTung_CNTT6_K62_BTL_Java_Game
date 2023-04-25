@@ -24,8 +24,8 @@ public class Map {
 	public static final String CRABBYS = "crabby_sprite.png";
 	public static final String BAR_HEALTH_POWER = "health_power_bar.png";
 	public static final String LEVEL_COMPLETE_MENU = "completed_sprite.png";
-	public static final String ITEMS_PACKAGE = "items_sprite.png";
-	public static final String LOAD_ITEMS_PACKAGE = "itemsLoad_sprite.png";
+	public static final String ITEMS_PACKAGE = "items_sprites.png";
+	public static final String LOAD_ITEMS_PACKAGE = "itemsLoad_sprites.png";
 	public static final String GAMEOVER_MENU = "death_screen.png";
 	public static final String OPTION_MENU = "options_background.png";
 	

@@ -22,10 +22,15 @@ public class Status {
 	}
 	public void setGameStatus(GameStatus status) {
 		switch(status) {
-		case MENU:
+		case MENU:{
+			game.getAudioPlayer().stopSong();
 			game.getAudioPlayer().playSong(AudioPlayer.MENU_1);
+			break;
+		}	
+			
 		case CONTINUE:
 			game.getAudioPlayer().setLevelSong(game.getContinue().getLevelManager().getLevelIndex());;
+			break;
 		}
 		GameStatus.status = status;
 	}

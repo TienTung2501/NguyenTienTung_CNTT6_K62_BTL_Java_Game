@@ -14,7 +14,7 @@ public class GameItems {
 	protected int x,y,itemType;
 	protected Rectangle2D.Float hitbox;
 	protected boolean doItem,activeItem=true;// doItem là biến tạo hiệu ứng cho các item sau khi bị phá huỷ
-	protected int statusTick,statusIndex;
+	protected int Tick,Index;
 	protected int xDrawOffset,yDrawOffset;
 	public GameItems(int x,int y,int itemType) {
 		this.x=x;
@@ -22,23 +22,25 @@ public class GameItems {
 		this.itemType=itemType;
 	}
 	protected void updateStatusItem() {
-		statusTick++;
-		if(statusTick>=STATUSSPEED) {
-			statusTick=0;
-			statusIndex++;
-			if(statusIndex>=GetSpriteAmount(itemType)) {
-				statusIndex=0;
-				if(itemType== BARREL ||itemType== BOX) {// nếu loại item là thùng hoặc hộp thì chưa bị phá huỷ -> hiệu ứng của item khi load vẫn chưa được kích hoạt
-					doItem=false;
-					activeItem=false;// khi bị phá thì kích hoạt trạng thái vỡ
-				}
-				
+		Tick++;
+			if(Tick>=STATUSSPEED) {
+				Tick=0;
+				Index++;
+				if(Index>=GetSpriteAmount(itemType)) {
+					Index=0;
+					if(itemType== BARREL ||itemType== BOX) {// nếu loại item là thùng hoặc hộp thì chưa bị phá huỷ -> hiệu ứng của item khi load vẫn chưa được kích hoạt
+						doItem=false;
+						activeItem=false;// khi bị phá thì kích hoạt trạng thái vỡ
+					}
+					
+					}
 				}
 			}
-		}
+			//}
+		
 	public void reset() {
-		statusIndex=0;
-		statusTick=0;
+		Index=0;
+		Tick=0;
 		activeItem=true;
 		//
 		if(itemType== BARREL ||itemType== BOX)
@@ -68,8 +70,11 @@ public class GameItems {
 	public boolean isActiveItem() {
 		return activeItem;
 	}
-	public void setActiveIten(boolean activeIte) {
-		this.activeItem=activeIte;
+	public void setDoItem(boolean value) {
+		this.doItem=value;
+	}
+	public void setActiveItem(boolean activeItem) {
+		this.activeItem=activeItem;
 	}
 	public int getxDrawOffset() {
 		return xDrawOffset;
@@ -78,6 +83,6 @@ public class GameItems {
 		return yDrawOffset;
 	}
 	public int getStatusIndex() {
-		return statusIndex;
+		return Index;
 	}
 }

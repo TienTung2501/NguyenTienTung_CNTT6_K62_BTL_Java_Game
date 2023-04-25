@@ -96,7 +96,10 @@ public class AudioPlayer {
 		stopSong();
 		playEffect(LVL_COMPLETED);
 	}
-
+	public void gameOver() {
+		stopSong();
+		playEffect(GAMEOVER);
+	}
 	public void playAttackSound() {
 		int start = 4;
 		start += rand.nextInt(3);
@@ -135,7 +138,15 @@ public class AudioPlayer {
 		if (!effectMute)
 			playEffect(JUMP);
 	}
-
+	public void pauseAudio(boolean pause,int indexLelvel) {
+		if(pause)
+			stopSong();
+		else {
+			playSong(indexLelvel);
+		}
+			
+			
+	}
 	private void updateSongVolume() {
 
 		FloatControl gainControl = (FloatControl) songs[currentSongId].getControl(FloatControl.Type.MASTER_GAIN);

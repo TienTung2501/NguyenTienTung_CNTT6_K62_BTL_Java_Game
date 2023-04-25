@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Controllers.Map;
 import Main.Game;
 import Menu.GameStatus;
+import audioPlayer.AudioPlayer;
 
 public class LevelManager {
 	// hoàn thành việc quản lý hình ảnh cho các caps độ giờ cần sang lớp continue để quản lý việc chuyển đối giữa các cấp độ
@@ -26,14 +27,13 @@ public class LevelManager {
 			game.getContinue().getEnemyManager().addEnemies(Levelcurrent);// tạo ra các quái cho trò chơi
 			game.getContinue().getPlayer().setLevelData(Levelcurrent.getLevelData());// khởi tạo trạng thái cho nhân vật
 			game.getContinue().setLevelOffset(Levelcurrent.getLevelOffset());// sét toạ độ của map hiện tại cho bản đồ
-			
+			game.getContinue().getItemManager().loadItemNewLevel(Levelcurrent);
 		}
 		public void loadNextLevel() {
 			levelIndex++;// thay đổi chỉ số của level trong mảng level để truy vấn
-			System.out.println("level="+levelIndex);
 			if(levelIndex>=levels.size()) {
 				levelIndex=0;
-				GameStatus.status=GameStatus.MENU;
+				game.getContinue().setGameStatus(GameStatus.MENU);
 			}
 			 updateLvel();
 		}
@@ -84,5 +84,6 @@ public class LevelManager {
 			game.getContinue().getPlayer().setLevelData(newLevel.getLevelData());// khởi tạo trạng thái cho nhân vật
 			game.getContinue().getPlayer().setSpawn(newLevel.getPlayerSpawn());
 			game.getContinue().setLevelOffset(newLevel.getLevelOffset());
+			game.getContinue().getItemManager().loadItemNewLevel(newLevel);
 		}
 }

@@ -4,6 +4,9 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import Controllers.LogicChangePos;
+import Items.ItemNotLoad;
+import Items.ItemTypes;
 import Main.Game;
 import objects.Crabby;
 import static Controllers.LogicChangePos.*;
@@ -11,6 +14,8 @@ public class Level {
 	private BufferedImage img;
 	private int[][] levelData;
 	private ArrayList<Crabby> crabs;
+	private ArrayList<ItemNotLoad> itemNotLoad;
+	private ArrayList<ItemTypes> itemLoad;
 	private int levelTilesWide;// số lượng ô vuông trên chiều rộng của bản đồ
 	private int maxTilesOffset ; //số ô vuông tối đa mà bản đồ có thể di chuyển theo chiều rộng.
 	private int maxLevelOffset ;// kích thước tối đa mà bản đồ có thể di truyểm
@@ -19,7 +24,16 @@ public class Level {
 		this.img=img;
 		createLevelData();
 		createEnemies();
+		createItemLoad();
+		createItemNotLoad();
 		calcLevelOffset();
+	}
+	private void createItemNotLoad() {
+		itemLoad= LogicChangePos.getItemLoad(img);
+	}
+	private void createItemLoad() {
+		itemNotLoad= LogicChangePos.getItemNotLoad(img);
+		
 	}
 	private void calcLevelOffset() {
 		levelTilesWide= img.getWidth();
@@ -52,5 +66,11 @@ public class Level {
 	}
 	public Point getPlayerSpawn() {
 		return levelSpawn;
+	}
+	public ArrayList<ItemTypes> getItemLoad(){
+		return itemLoad;
+	}
+	public ArrayList<ItemNotLoad> getItemNotLoad(){
+		return itemNotLoad;
 	}
 }

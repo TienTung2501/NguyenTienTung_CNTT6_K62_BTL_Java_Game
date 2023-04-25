@@ -8,6 +8,7 @@ import Controllers.Map;
 import Main.Game;
 import Menu.Continue;
 import Menu.GameStatus;
+import audioPlayer.AudioPlayer;
 
 import static Controllers.Controller.Gui.UrmButtons.*;
 
@@ -73,6 +74,8 @@ public class LevelCompleteMenu {
 		//	continuee.resetAll();
 		//		continuee.loadNextLevel();
 				continuee.setGameStatus(GameStatus.MENU);
+				continuee.getGame().getAudioPlayer().stopSong();
+				continuee.getGame().getAudioPlayer().playSong(AudioPlayer.MENU_1);
 			}		
 		}
 		else if(isIn(next, e)) {

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Float;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
@@ -12,8 +13,11 @@ import Controllers.Map;
 import Gui.GameOverMenu;
 import Gui.LevelCompleteMenu;
 import Gui.PauseGame;
+import Items.GameItems;
+import Items.ItemManager;
 import Level.LevelManager;
 import Main.Game;
+import audioPlayer.AudioPlayer;
 import objects.EnemyManager;
 import objects.Player;
 import static Controllers.Controller.Gui.Cloud.*;
@@ -27,6 +31,7 @@ public class Continue extends Status implements StatusMethod{
 	private boolean paused = false ;// biến này cho biết khi nào sẽ chuyển sang màn hình pause game;
 	private boolean levelCompleted;
 	private boolean playerDying;
+	private ItemManager itemManager;
 	
 	private int xLevelOffset;// đây là vị trí bản đổ trên trục x
 	private int leftBorder=(int) (0.2*Game.WIDTH_SIZE); // nếu vị trí nhân vật đang đứng cách đường biên giới trái lớn hơn 20% chiều rộng jframe thì không cần phải chuyển khung hình
@@ -50,6 +55,7 @@ public class Continue extends Status implements StatusMethod{
 
 	private void loadStartLevel() {// tải hình ảnh cho levelmap
 		enemyManager.addEnemies(levelManager.getCurrentLevel());
+		itemManager.loadItemNewLevel(levelManager.getCurrentLevel());
 	}
 	public void loadNextLevel() {// sau khi hoàn thành 1 level thì sẽ sét cho nó một vị trí
 		resetAll();
@@ -73,6 +79,7 @@ public class Continue extends Status implements StatusMethod{
 	private void initStaus() {// khởi tạo các thực thể, nhân vật, các trạng thái menu của continue tức là màn hình game đang chơi
 		levelManager = new LevelManager(game);// tao map cho nhan vat
 		enemyManager = new EnemyManager(this);
+		itemManager = new ItemManager(this); 
 		player = new Player(100,200,(int)(64*Game.SCALE),(int)(40*Game.SCALE),this);// khởi tạo nhân vật
 		player.setLevelData(levelManager.getCurrentLevel().getLevelData());//set trị số id của khung hình mà nhân vật đang đứng
 		player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());//vị trí mà người chơi sẽ xuất hiện tại map mới	
@@ -85,6 +92,7 @@ public class Continue extends Status implements StatusMethod{
 	public void update() {// update cho map đang choi như là map, nhân vật
 		if(paused) {
 			pauseGame.update();
+			getGame().getAudioPlayer().stopSong();
 		}
 		else if(levelCompleted) {
 			levelCompleteMenu.update();			
@@ -92,12 +100,14 @@ public class Continue extends Status implements StatusMethod{
 		else if(gameOver) {
 			
 			gameOverMenu.update();
+		
 		}	
 		else if(playerDying) {
 			player.update();
 		}
 		else if(!gameOver) {
 			levelManager.update();
+			itemManager.update();
 			player.update();
 			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 			checkNearBorder();
@@ -126,12 +136,16 @@ public class Continue extends Status implements StatusMethod{
 //		
 //	}
 	
+	public void checkItemTouched(Rectangle2D.Float hitbox) {
+		itemManager.checkItemTouchedPlayer(hitbox);
+	}
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(backGrSky, 0, 0, Game.WIDTH_SIZE, Game.HEIGHT_SIZE, null);
 		drawClouds(g);
 		levelManager.draw(g,xLevelOffset);
 		enemyManager.draw(g,xLevelOffset);
+		itemManager.draw(g,xLevelOffset);
 		player.render(g,xLevelOffset);
 		if(paused) {
 			
@@ -260,8 +274,12 @@ public class Continue extends Status implements StatusMethod{
 	}
 	public void unPauseGame() {
 		paused = false;
+		getGame().getAudioPlayer().playSong(getLevelManager().getLevelIndex());
+		
 	}
-	
+	public boolean getPause() {
+		return paused;
+	}
 	public void windowFocusLost() {// khi game bị mất tiêu điểm
 		player.resetDirectionBoolean();
 	}
@@ -278,6 +296,7 @@ public class Continue extends Status implements StatusMethod{
 		paused=false;
 		player.resetAll();
 		enemyManager.resetAll();
+		itemManager.resetAll();
 //		levelManager.resetLevel();// cập nhật lại game có thể comment lại
 	}
 	public void checkEnemyDamage(Rectangle2D.Float acttackBox) {// kiểm tra xe nhân vật có đang nhận sát thương của kẻ thù không
@@ -285,6 +304,8 @@ public class Continue extends Status implements StatusMethod{
 	}
 	public void setGameOver(boolean gameOver) {
 		this.gameOver=gameOver;
+//		if(gameOver)
+//			game.getAudioPlayer().gameOver();
 	}
 	public EnemyManager getEnemyManager() {
 		return enemyManager;
@@ -309,6 +330,15 @@ public class Continue extends Status implements StatusMethod{
 
 	public void setPlayerDying(boolean b) {
 		this.playerDying=b;
+		
+	}
+	public ItemManager getItemManager() {
+		return itemManager;
+	}
+
+
+	public void checkItemHit(Rectangle2D.Float acttackBox) {
+		itemManager.checkItemHit(acttackBox);
 		
 	}
 }

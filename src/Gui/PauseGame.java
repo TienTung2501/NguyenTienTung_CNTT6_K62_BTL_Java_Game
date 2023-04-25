@@ -9,6 +9,7 @@ import Controllers.Map;
 import Main.Game;
 import Menu.Continue;
 import Menu.GameStatus;
+import audioPlayer.AudioPlayer;
 
 import static Controllers.Controller.Gui.UrmButtons.*;
 public class PauseGame {
@@ -85,6 +86,8 @@ public class PauseGame {
 			if(menuB.isMousePressed()) {// đang trong vị trí của musibutton 
 				GameStatus.status = GameStatus.MENU;// set chuyển trạng thái cho musicButton
 				continuee.unPauseGame();// sau khi chuyen sang menu thi trang thai cua game van la paused nen can phai set lai
+				continuee.getGame().getAudioPlayer().stopSong();
+				continuee.getGame().getAudioPlayer().playSong(AudioPlayer.MENU_1);
 			}
 		}
 		else if(isIn(e,relayB)) {

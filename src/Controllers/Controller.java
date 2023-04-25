@@ -28,7 +28,7 @@ public class Controller {
 
 		public static int GetSpriteAmount(int object_type) {
 			switch (object_type) {
-			case RED_ITEM_VALUE, BLUE_ITEM_VALUE:
+			case RED_LOAD_ITEM, BLUE_LOAD_ITEM:
 				return 7;
 			case BARREL, BOX:
 				return 8;

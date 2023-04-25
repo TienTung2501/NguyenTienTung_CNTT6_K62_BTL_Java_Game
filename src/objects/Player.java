@@ -63,7 +63,7 @@ public class Player extends Object{
 		super(x,y,width,height);// khởi tạo đối tượng
 		this.continuee=continuee;
 		this.maxHealth=100;
-		this.currentHealth=maxHealth;
+		this.currentHealth=35;
 		this.status=IDLE;
 		this.speed= Game.SCALE*1.0f;
 		loadStatus();// tải trạng thái của nhân vật
@@ -100,6 +100,7 @@ public class Player extends Object{
 			return;
 		acttackChecked=true;
 		continuee.checkEnemyDamage(acttackBox);
+		continuee.checkItemHit(acttackBox);
 		continuee.getGame().getAudioPlayer().playAttackSound();
 		
 	}
@@ -114,9 +115,9 @@ public class Player extends Object{
 				continuee.getGame().getAudioPlayer().playEffect(AudioPlayer.DIE);// hiệu ứng âm thanh cho nhân vật khi chết
 			}// trong trường hợp khung hoạt ảnh đang chạy đến cuối mảng hoạt ảnh rồi thì mới gọi giao diện gameOver
 			else if(statusIndex== GetSpriteAmount(DEAD)-1 && statusTick>= STATUSSPEED-1) {
-				continuee.setGameOver(true);
+				continuee.setGameOver(true);				
 				continuee.getGame().getAudioPlayer().stopSong();
-				continuee.getGame().getAudioPlayer().playSong(AudioPlayer.GAMEOVER);
+				continuee.getGame().getAudioPlayer().playEffect(AudioPlayer.GAMEOVER);
 			}
 			else {
 				updateStatusOfMainer();
@@ -126,10 +127,16 @@ public class Player extends Object{
 		
 		updateActtackBox();// cập nhật vị trí của hộp tấn công
 		updatePosition();// cập nhật vị trí của nhân vật
+		if(moving)
+			checkItemTouched();
 		if(isActtack)
 			checkActtack();
 		updateStatusOfMainer();// cập nhật trạng thái của nhân vật sau mỗi lần thanh đổi vị trí
 		setStatus();
+	}
+	private void checkItemTouched() {
+		continuee.checkItemTouched(hitBox);
+		
 	}
 	private void updateActtackBox() {
 		if(right) {
@@ -223,11 +230,10 @@ public class Player extends Object{
 //		System.out.println("Player Health:"+currentHealth);
 		if(currentHealth<=0) {
 			currentHealth=0;
-			//game over
 		}
-		else if(currentHealth>0) {
-			if(hitBox.x+hitBox.height>=)
-		}
+//		else if(currentHealth>0) {
+//			if(hitBox.x+hitBox.height>=)
+//		}
 		else if(currentHealth>=maxHealth) {
 			currentHealth=maxHealth;
 		}
@@ -336,5 +342,9 @@ public class Player extends Object{
 			inAir = true;
 	}
 	//khởit tạo bằng set
+	public void changePower(int blueItemValue) {
+		System.out.println("add power");
+		
+	}
 	
 }

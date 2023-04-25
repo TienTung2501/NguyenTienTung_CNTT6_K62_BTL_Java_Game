@@ -1,6 +1,8 @@
 package Items;
 import static Controllers.Controller.ItemsInGame.*;
 
+import java.awt.Graphics;
+
 import Main.Game;
 public class ItemNotLoad extends GameItems {
 
@@ -20,10 +22,14 @@ public class ItemNotLoad extends GameItems {
 			xDrawOffset=(int)(8*Game.SCALE);
 			yDrawOffset=(int)(5*Game.SCALE);
 		}
+		hitbox.y+=yDrawOffset+(int) (Game.SCALE*2);
+		hitbox.x+=xDrawOffset/2;
 		
 	}
 	public void update() {
-		updateStatusItem();
+		if(doItem)
+			updateStatusItem();
 	}
+
 	
 }

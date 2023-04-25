@@ -10,6 +10,7 @@ import Controllers.Map;
 import Main.Game;
 import Menu.Continue;
 import Menu.GameStatus;
+import audioPlayer.AudioPlayer;
 
 import static Controllers.Controller.Gui.UrmButtons.*;
 
@@ -42,6 +43,7 @@ public class GameOverMenu {
 	public void update() {
 		menu.update();
 		tryAgain.update();
+		continuee.getGame().getAudioPlayer().playEffect(AudioPlayer.GAMEOVER);
 	}
 	public void draw(Graphics g) {
 		g.setColor(new Color(0,0,0,200));
