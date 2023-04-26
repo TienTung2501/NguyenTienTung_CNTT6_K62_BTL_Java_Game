@@ -22,7 +22,7 @@ public class GameItems {
 		this.itemType=itemType;
 	}
 	protected void updateStatusItem() {
-		Tick++;
+			Tick++;
 			if(Tick>=STATUSSPEED) {
 				Tick=0;
 				Index++;

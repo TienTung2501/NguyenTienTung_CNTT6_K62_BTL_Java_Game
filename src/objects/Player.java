@@ -23,6 +23,7 @@ import java.awt.image.BufferedImage;
 import Controllers.Map;
 import Main.Game;
 import Menu.Continue;
+import Menu.GameStatus;
 import audioPlayer.AudioPlayer;
 public class Player extends Object{
 	private BufferedImage imgMainer;
@@ -105,6 +106,12 @@ public class Player extends Object{
 		
 	}
 	public void update() {
+		 if(currentHealth>0) {
+			if((int)(hitBox.y+hitBox.height+5)>=Game.HEIGHT_SIZE) {
+				currentHealth=0;
+			}
+			
+		}
 		updateHealthBar();
 		if(currentHealth<=0) {// khi nhân vật chết thì trạng thái của nhân vật sẽ là dead và hoạt ảnh của nhân vật sẽ được chuyển xuống mảng hoạt ảnh và khung hoạt ảnh ở đầu tiên trong mảng
 			if(status!=DEAD) {
@@ -133,6 +140,7 @@ public class Player extends Object{
 			checkActtack();
 		updateStatusOfMainer();// cập nhật trạng thái của nhân vật sau mỗi lần thanh đổi vị trí
 		setStatus();
+		System.out.println("hitboxY="+(hitBox.y+hitBox.height));
 	}
 	private void checkItemTouched() {
 		continuee.checkItemTouched(hitBox);
@@ -153,7 +161,6 @@ public class Player extends Object{
 		healthWidth=(int) ((currentHealth /(float)maxHealth)*healthBarWidth);
 		
 	}
-
 	public void render(Graphics g, int levelOffset) {// reset lại hộp hitbox
 		g.drawImage(statusOfMainer[status][statusIndex] ,
 				(int) (hitBox.x-xDrawOffset)-levelOffset+flipX,// lí do cần cộng thêm flipX vì khi ta chuyển hướng thì toạ độ của x cần phải ở vị trí right lúc trước nếu không nhân vật sẽ nhảy đi một đoạn
@@ -227,20 +234,16 @@ public class Player extends Object{
 	}
 	public void changeHealth(int value) {
 		currentHealth-=value;
-//		System.out.println("Player Health:"+currentHealth);
+	
 		if(currentHealth<=0) {
 			currentHealth=0;
 		}
-//		else if(currentHealth>0) {
-//			if(hitBox.x+hitBox.height>=)
-//		}
 		else if(currentHealth>=maxHealth) {
 			currentHealth=maxHealth;
 		}
 	
 			
 	}
-
 	private void updatePosition() {
 		moving = false;// hiện tại nhân vật không di truyển
 		if (jump)// nếu nhân vật đang nhảy

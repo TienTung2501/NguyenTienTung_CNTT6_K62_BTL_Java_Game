@@ -89,6 +89,7 @@ public class GameOverMenu {
 			if(tryAgain.isMousePressed()) {
 				continuee.getPlayer().resetAll();// set chuyển trạng thái cho musicButton
 				continuee.getEnemyManager().resetAll();
+				continuee.getItemManager().resetAll();
 				continuee.unPauseGame();
 				continuee.setPlayerDying(false);
 				continuee.setGameOver(false);

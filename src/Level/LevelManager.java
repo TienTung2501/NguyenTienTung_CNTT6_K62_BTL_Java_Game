@@ -26,8 +26,10 @@ public class LevelManager {
 			Level  Levelcurrent= levels.get(levelIndex);// tạo 1 level mới có hình ảnh chỉ số index đang được lưu trong mảng
 			game.getContinue().getEnemyManager().addEnemies(Levelcurrent);// tạo ra các quái cho trò chơi
 			game.getContinue().getPlayer().setLevelData(Levelcurrent.getLevelData());// khởi tạo trạng thái cho nhân vật
+			game.getContinue().getItemManager().resetAll();
 			game.getContinue().setLevelOffset(Levelcurrent.getLevelOffset());// sét toạ độ của map hiện tại cho bản đồ
 			game.getContinue().getItemManager().loadItemNewLevel(Levelcurrent);
+			
 		}
 		public void loadNextLevel() {
 			levelIndex++;// thay đổi chỉ số của level trong mảng level để truy vấn
@@ -83,7 +85,9 @@ public class LevelManager {
 			game.getContinue().getEnemyManager().addEnemies(newLevel);// tạo ra các quái cho trò chơi
 			game.getContinue().getPlayer().setLevelData(newLevel.getLevelData());// khởi tạo trạng thái cho nhân vật
 			game.getContinue().getPlayer().setSpawn(newLevel.getPlayerSpawn());
+			game.getContinue().getItemManager().resetAll();
 			game.getContinue().setLevelOffset(newLevel.getLevelOffset());
 			game.getContinue().getItemManager().loadItemNewLevel(newLevel);
+			
 		}
 }

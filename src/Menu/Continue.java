@@ -90,6 +90,7 @@ public class Continue extends Status implements StatusMethod{
 
 	@Override
 	public void update() {// update cho map đang choi như là map, nhân vật
+		//checkTime();	
 		if(paused) {
 			pauseGame.update();
 			getGame().getAudioPlayer().stopSong();
@@ -112,9 +113,10 @@ public class Continue extends Status implements StatusMethod{
 			enemyManager.update(levelManager.getCurrentLevel().getLevelData(), player);
 			checkNearBorder();
 		}
+		
 	
 	}
-
+	
 	private void checkNearBorder() {
 		int playerX = (int) player.getHitBox().x;
 		int deltaX = playerX-xLevelOffset; //kiểm tra độ lệch toạ độ của nhân vật và vị trí của map hiện tại
@@ -141,6 +143,8 @@ public class Continue extends Status implements StatusMethod{
 	}
 	@Override
 	public void draw(Graphics g) {
+//		g.setColor(Color.WHITE);
+//		g.drawString("TimeGame"+time, game.WIDTH_SIZE , game.HEIGHT_SIZE);
 		g.drawImage(backGrSky, 0, 0, Game.WIDTH_SIZE, Game.HEIGHT_SIZE, null);
 		drawClouds(g);
 		levelManager.draw(g,xLevelOffset);
@@ -296,11 +300,11 @@ public class Continue extends Status implements StatusMethod{
 		paused=false;
 		player.resetAll();
 		enemyManager.resetAll();
-		itemManager.resetAll();
 //		levelManager.resetLevel();// cập nhật lại game có thể comment lại
 	}
 	public void checkEnemyDamage(Rectangle2D.Float acttackBox) {// kiểm tra xe nhân vật có đang nhận sát thương của kẻ thù không
 		enemyManager.checkPlayerHit(acttackBox);
+		
 	}
 	public void setGameOver(boolean gameOver) {
 		this.gameOver=gameOver;

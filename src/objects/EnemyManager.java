@@ -28,10 +28,25 @@ public class EnemyManager {
 		for(Crabby c:crabbies) 
 			if(c.getCurrentHealth()>0)
 				if(c.isAcitve()) 
+				{
+					
 					if(attackBox.intersects(c.getHitBox())) {// kiểm tra xem các hộp sát thương của nhân vật và hộp chứa kẻ thù có va chạm vào nhau không
 						c.hurt(5);
 						return;
-					}			
+					}						
+				}
+	}
+	public void checkPlayerMoveOnCrabby(Rectangle2D.Float hitbox) {
+		for(Crabby c:crabbies) 
+			if(c.getCurrentHealth()>0)
+				if(c.isAcitve()) 
+				{
+					
+					if(hitbox.y+hitbox.height==c.hitBox.y) {// kiểm tra xem các hộp sát thương của nhân vật và hộp chứa kẻ thù có va chạm vào nhau không
+						c.hurt(5);
+						return;
+					}						
+				}
 	}
 	private void loadEnemyImgs() {
 		crabbys = new BufferedImage[5][9];

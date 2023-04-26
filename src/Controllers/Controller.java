@@ -149,7 +149,7 @@ public class Controller {
 		public static int GetMaxHealth(int enemyType) {
 			switch(enemyType) {
 			case CRABBY:
-				return 10;
+				return 20;
 				default:
 					return 0;
 			}
@@ -157,7 +157,7 @@ public class Controller {
 		public static int GetEnemyDamage(int enemyType) {
 			switch(enemyType) {
 			case CRABBY:
-				return 50;
+				return 10;
 				default:
 					return 0;
 			}
