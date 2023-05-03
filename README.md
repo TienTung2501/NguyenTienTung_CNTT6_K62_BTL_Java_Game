@@ -5,7 +5,8 @@ B1: Tải dự án trên github về, giải nén ra Desktop, đổi tên thành
 	(link git: https://github.com/TienTung2501/NguyenTienTung_CNTT6_K62_BTL_Java_Game/tree/master)
 	
 B2: Mở Command Prompt lên và tạo đường dẫn đến folder Game( folder của dự án đã giải nén ra)	
- Thực hiện:
+
+Thực hiện:
  
 	- Bật CMD lên, sau khi bật trạng thái của CMD là:"C:\Users\NGUYEN TIEN TUNG> "( trên máy của thầy thì tên users sẽ khác máy của em ạ )
 	
