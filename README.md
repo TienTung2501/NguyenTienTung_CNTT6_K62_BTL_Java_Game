@@ -2,7 +2,7 @@ Cách chạy chương trình khi máy không có IDE mà chỉ có JDK:
 
 B1: Tải dự án trên github về, giải nén ra Desktop, đổi tên thành Game (tên trước khi giải nén là NguyenTienTung_CNTT6_K62_BTL_Java_Game)
 
-	(link git: https://github.com/TienTung2501/NguyenTienTung_CNTT6_K62_BTL_Java_Game/tree/master)
+	(link git: https://github.com/TienTung2501/NguyenTienTung_CNTT6_K62_BTL_Java_Game)
 	
 B2: Mở Command Prompt lên và tạo đường dẫn đến folder Game( folder của dự án đã giải nén ra)	
 
