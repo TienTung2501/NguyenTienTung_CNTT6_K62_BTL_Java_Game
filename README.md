@@ -20,6 +20,8 @@ B3: Chạy file chứa hàm main
 
   Thực hiện
   
-	  --> java -cp bin Main.MainClass
+	  --> java -cp "bin;lib/mysql-connector-java-8.0.30.jar" Main.MainClass
+	  
+	  ( Trong đó để chạy được các thư viện ở bên ngoài dự án cần phải thực hiện chỉ ra classpath của thư viện để chương trình nhận diện)
 	  
  ( Em thưa thầy, vì là hiện tại kết nối SQL của dự án đang là Local nên khi chạy dự án trên máy thầy không thể sử dụng được nên có thể phát sinh lỗi không kết nối SQL ạ.)
